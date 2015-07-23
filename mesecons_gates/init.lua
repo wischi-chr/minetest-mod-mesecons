@@ -76,7 +76,7 @@ function register_gate(name, inputnumber, assess, recipe)
 		offstate = basename.."_off",
 		inputnumber = inputnumber
 	},{
-		tiles = {"jeija_microcontroller_bottom.png^".."jeija_gate_off.png^"..
+		tiles = {"jeija_gate_bottom.png^".."jeija_gate_off.png^"..
 			"jeija_gate_"..name..".png"},
 		groups = {dig_immediate = 2, overheat = 1},
 		mesecons = { receptor = {
@@ -87,7 +87,7 @@ function register_gate(name, inputnumber, assess, recipe)
 			action_change = update_gate
 		}}
 	},{
-		tiles = {"jeija_microcontroller_bottom.png^".."jeija_gate_on.png^"..
+		tiles = {"jeija_gate_bottom.png^".."jeija_gate_on.png^"..
 			"jeija_gate_"..name..".png"},
 		groups = {dig_immediate = 2, not_in_creative_inventory = 1, overheat = 1},
 		mesecons = { receptor = {
@@ -102,20 +102,15 @@ function register_gate(name, inputnumber, assess, recipe)
 	minetest.register_craft({output = basename.."_off", recipe = recipe})
 end
 
-register_gate("diode", 1, function (input) return input end,
-	{{"mesecons:mesecon", "mesecons_torch:mesecon_torch_on", "mesecons_torch:mesecon_torch_on"}})
 
-register_gate("not", 1, function (input) return not input end,
-	{{"mesecons:mesecon", "mesecons_torch:mesecon_torch_on", "mesecons:mesecon"}})
-
+register_gate("transistor",2,function(val1,val2) return val2 and not val1 end,
+	{{"", "mesecons:mesecon", ""},
+	 {"", "mesecons:mesecon", "mesecons:mesecon"},
+	 {"", "mesecons:mesecon", ""}})
+	 
 register_gate("and", 2, function (val1, val2) return val1 and val2 end,
 	{{"mesecons:mesecon", "", ""},
 	 {"", "mesecons_materials:silicon", "mesecons:mesecon"},
-	 {"mesecons:mesecon", "", ""}})
-
-register_gate("nand", 2, function (val1, val2) return not (val1 and val2) end,
-	{{"mesecons:mesecon", "", ""},
-	 {"", "mesecons_materials:silicon", "mesecons_torch:mesecon_torch_on"},
 	 {"mesecons:mesecon", "", ""}})
 
 register_gate("xor", 2, function (val1, val2) return (val1 or val2) and not (val1 and val2) end,
