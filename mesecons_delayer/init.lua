@@ -173,7 +173,7 @@ end
 minetest.register_craft({
 	output = "mesecons_delayer:delayer_off_1",
 	recipe = {
-		{"mesecons_torch:mesecon_torch_on", "group:mesecon_conductor_craftable", "mesecons_torch:mesecon_torch_on"},
+		{"group:stick", "group:mesecon_conductor_craftable", "group:stick"},
 		{"default:cobble","default:cobble", "default:cobble"},
 	}
 })
