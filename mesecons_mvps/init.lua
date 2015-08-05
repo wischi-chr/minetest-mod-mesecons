@@ -1,5 +1,6 @@
 --register stoppers for movestones/pistons
 
+mesecon.mvps_generic_stopper = {}
 mesecon.mvps_stoppers = {}
 mesecon.on_mvps_move = {}
 mesecon.mvps_unmov = {}
@@ -19,10 +20,23 @@ function mesecon.is_mvps_stopper(node, pushdir, stack, stackid)
 	if type (get_stopper) == "function" then
 		get_stopper = get_stopper(node, pushdir, stack, stackid)
 	end
+	
+	if not get_stopper then
+		for k,stopper in ipairs(mesecon.mvps_generic_stopper) do
+			get_stopper = stopper(node, pushdir, stack, stackid)
+			if get_stopper then return get_stopper end
+		end
+	end
+	
 	return get_stopper
 end
 
 function mesecon.register_mvps_stopper(nodename, get_stopper)
+	if nodename == nil and type(get_stopper) == "function" then
+		table.insert(mesecon.mvps_generic_stopper,get_stopper)
+		return
+	end
+
 	if get_stopper == nil then
 			get_stopper = true
 	end
