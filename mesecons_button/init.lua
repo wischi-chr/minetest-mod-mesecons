@@ -15,7 +15,7 @@ end
 minetest.register_node("mesecons_button:button_off", {
 	drawtype = "nodebox",
 	tiles = {
-	"jeija_wall_button_sides.png",	
+	"jeija_wall_button_sides.png",
 	"jeija_wall_button_sides.png",
 	"jeija_wall_button_sides.png",
 	"jeija_wall_button_sides.png",
@@ -32,7 +32,7 @@ minetest.register_node("mesecons_button:button_off", {
 		fixed = { -6/16, -6/16, 5/16, 6/16, 6/16, 8/16 }
 	},
 	node_box = {
-		type = "fixed",	
+		type = "fixed",
 		fixed = {
 		{ -6/16, -6/16, 6/16, 6/16, 6/16, 8/16 },	-- the thin plate behind the button
 		{ -4/16, -2/16, 4/16, 4/16, 2/16, 6/16 }	-- the button itself
@@ -40,7 +40,7 @@ minetest.register_node("mesecons_button:button_off", {
 	},
 	groups = {dig_immediate=2, mesecon_needs_receiver = 1},
 	description = "Button",
-	on_punch = function (pos, node)
+	on_rightclick = function (pos, node)
 		minetest.swap_node(pos, {name = "mesecons_button:button_on", param2=node.param2})
 		mesecon.receptor_on(pos, mesecon.rules.buttonlike_get(node))
 		minetest.sound_play("mesecons_button_push", {pos=pos})
